@@ -22,24 +22,57 @@ export default class Nonogram {
   #cachedFullBoard: string[] = [];
   #cachedFullBoardIsValid = false;
 
+  /**
+   * Height of the Nonogram.
+   */
   public get height() {
     return this.#height;
   }
 
+  /**
+   * Width of the Nonogram.
+   */
   public get width() {
     return this.#width;
   }
 
+  /**
+   * If the full board cache is valid. Note that it will be `false` when nothing was cached yet.
+   */
+  public get isCachedFullBoardValid() {
+    return this.#cachedFullBoardIsValid;
+  }
+
+  /**
+   * Nonogram board.
+   */
   public get board() {
     const board = this.#board.map(x => x.join(' ')).join('\n');
     return board;
   }
 
+  /**
+   * Nonogram board, including numbers around it.
+   */
   public get fullBoard(): string {
     if (this.#cachedFullBoardIsValid) return this.#cachedFullBoard.join('\n');
     return this.makeFullBoard().join('\n');
   }
 
+  /**
+   * Invalidates full board cache.
+   * Returns `false` if cache was invalid before the call, or if there was no board cached. Otherwise returns `true`
+   */
+  public invalidateCache() {
+    if (!this.#cachedFullBoardIsValid || !this.#cachedFullBoard.length) return false;
+    this.#cachedFullBoardIsValid = false;
+    return true;
+  }
+
+  /**
+   * Function for creating board with numbers.
+   * It's relatively expensive, so returned board is cached.
+   */
   private makeFullBoard() {
     const board = this.#board;
     const numbers = this.#numbers;
@@ -76,6 +109,9 @@ export default class Nonogram {
     return finalBoard;
   }
 
+  /**
+   * Init the board. Used only in the constructor.
+   */
   private init() {
     for (let i = 0; i !== this.#height; i++) {
       const arr: string[] = [];
