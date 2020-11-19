@@ -11,6 +11,6 @@ If you want to see the current TODO list, [click here](/TODO.md). For known issu
 
 
 <small>
-© tipakA 2020
+© tipakA 2020<br/ >
 Nonogram used in example and screnshots is taken from <a href=http://a.teall.info/nonogram/>a.teall.info</a>
 </small>
